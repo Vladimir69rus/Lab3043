@@ -1,0 +1,55 @@
+#include <stdio.h>
+float check(float z) {
+    float x, y, k1 = 1, k2 = 1, k3 = 1;
+    float k = 35; // чем больше число k, тем точнее значение синуса
+    float chisl;
+    float n1, znam;
+    float sum = 0;
+    float n2 = 3;
+
+    while (k3 <= k) {
+        x = 1, y = 1;
+        n1 = 2 * k3 + 1;
+        znam = n1;
+        chisl = z;
+
+        while (y < n2) { // цикл для подсчета числителя		
+            chisl = chisl * z * z;
+            y = y + 2;
+        }
+        while (x < n1) { // цикл для подсчета знаменателя	
+            znam = znam * (n1 - x);
+            x++;
+        }
+        while (k2 <= k3) { // цикл для подсчета числа в степени k		
+            k1 = k1 * (-1);
+            k2++;
+        }
+        sum = sum + (chisl / znam) * k1;
+        k3++;
+        n2 = n2 + 2;
+    }
+    sum = sum + z;
+    return sum;
+}
+
+int main() { //тестирующая функция
+    float e, p;
+    int x = 0, c = 0;
+    int end;
+
+    // Набор эталонных параметров и результатов (результаты написаны, исходя из заданной точности подсчета числа пи)
+    float cin[5] = { 3.1415926535, 1.57079632675, 0.52402617, 1.04719755116, 0.0 };
+
+    float result[5] = { 0.000000000, 1.000000000, 0.5003700852, 0.8660253882, 0.000000000 };
+
+    while (x < 5) { // цикл для проверки значений числа пи
+        e = check(cin[c]);
+        if (e == result[c]) end = 0;
+        else end = 1;
+        c++;
+        x++;
+        if (end == 1) break;
+    }
+    return end;
+}
